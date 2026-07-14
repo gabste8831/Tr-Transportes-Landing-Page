@@ -1,4 +1,5 @@
 import Image from "next/image";
+import styles from "./Clients.module.css";
 
 const LOGOS = [
   {
@@ -24,21 +25,19 @@ const MARQUEE_LOGOS = [...LOGOS, ...LOGOS];
 
 export default function Clients() {
   return (
-    <section className="py-24 bg-surface-container border-y border-outline-variant" id="clientes">
-      <div className="max-w-[1280px] mx-auto px-8 mb-12">
-        <p className="text-center text-on-surface/40 text-[10px] uppercase tracking-[0.4em] font-medium">
-          Empresas que confiam em nós
-        </p>
+    <section className={styles.section} id="clientes">
+      <div className={styles.container}>
+        <p className={styles.caption}>Empresas que confiam em nós</p>
       </div>
-      <div className="overflow-hidden flex">
-        <div className="flex gap-24 animate-marquee whitespace-nowrap items-center py-12">
+      <div className={styles.marqueeOuter}>
+        <div className={`${styles.marqueeTrack} animate-marquee`}>
           {MARQUEE_LOGOS.map((logo, i) => (
-            <div key={`${logo.name}-${i}`} className="relative h-32 w-40 shrink-0">
+            <div key={`${logo.name}-${i}`} className={styles.logoWrap}>
               <Image
                 src={logo.src}
                 alt={`${logo.name} Logo`}
                 fill
-                className="object-contain grayscale hover:grayscale-0 transition-all duration-300 cursor-default"
+                className={styles.logo}
               />
             </div>
           ))}

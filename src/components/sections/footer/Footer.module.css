@@ -1,0 +1,160 @@
+.footer {
+  background: var(--color-primary);
+  color: #ffffff;
+  border-top: 1px solid rgb(255 255 255 / 0.1);
+}
+
+.container {
+  max-width: 1280px;
+  margin-inline: auto;
+  padding: var(--space-2xl) var(--space-gutter);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-xl);
+  margin-bottom: var(--space-2xl);
+}
+
+.brandCol {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.logo {
+  color: #ffffff;
+  font-size: var(--fs-2xl);
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.logoLight {
+  font-weight: 300;
+}
+
+.brandText {
+  color: rgb(255 255 255 / 0.6);
+  font-size: var(--fs-sm);
+  font-weight: 300;
+  line-height: 1.7;
+  max-width: 20rem;
+}
+
+.socials {
+  display: flex;
+  gap: var(--space-sm);
+}
+
+.socialLink {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 999px;
+  border: 1px solid rgb(255 255 255 / 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.socialLink:hover {
+  background: var(--color-secondary);
+  border-color: var(--color-secondary);
+}
+
+.colTitle {
+  font-size: var(--fs-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-weight: 600;
+  margin-bottom: var(--space-lg);
+  color: rgb(255 255 255 / 0.4);
+}
+
+.linkList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  font-size: var(--fs-sm);
+  font-weight: 300;
+}
+
+.linkList a {
+  transition: color 0.2s ease;
+}
+
+.linkList a:hover {
+  color: var(--color-secondary);
+}
+
+.contactLink {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.contactIcon {
+  color: rgb(255 255 255 / 0.4);
+}
+
+.address {
+  font-size: var(--fs-sm);
+  font-weight: 300;
+  color: rgb(255 255 255 / 0.6);
+  line-height: 1.7;
+}
+
+.bottom {
+  padding-top: var(--space-lg);
+  border-top: 1px solid rgb(255 255 255 / 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-md);
+  text-align: center;
+}
+
+.copy {
+  color: rgb(255 255 255 / 0.4);
+  font-size: var(--fs-2xs);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+}
+
+.tagline {
+  color: rgb(255 255 255 / 0.6);
+  font-size: var(--fs-xs);
+  font-style: italic;
+  margin-top: 0.25rem;
+}
+
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(12, 1fr);
+  }
+
+  .brandCol {
+    grid-column: span 4;
+  }
+
+  .navCol {
+    grid-column: span 2;
+  }
+
+  .contactCol {
+    grid-column: span 3;
+  }
+
+  .locationCol {
+    grid-column: span 3;
+  }
+
+  .bottom {
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: left;
+  }
+}

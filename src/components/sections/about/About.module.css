@@ -1,0 +1,126 @@
+.section {
+  padding-block: var(--space-section-md);
+  background: #ffffff;
+}
+
+.grid {
+  max-width: 1280px;
+  margin-inline: auto;
+  padding-inline: var(--space-gutter);
+  display: grid;
+  gap: var(--space-xl);
+  align-items: center;
+}
+
+.imageWrap {
+  position: relative;
+}
+
+.imageFrame {
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  background: var(--color-surface-container);
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.06);
+  border: 1px solid var(--color-outline-variant);
+  position: relative;
+}
+
+.image {
+  object-fit: cover;
+  transition: filter 0.7s ease;
+}
+
+.badge {
+  position: absolute;
+  bottom: -2rem;
+  right: -2rem;
+  width: 12rem;
+  height: 12rem;
+  background: var(--color-primary);
+  padding: var(--space-md);
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.badgeValue {
+  color: #ffffff;
+  font-size: var(--fs-4xl);
+  font-weight: 300;
+  margin-bottom: 0.25rem;
+}
+
+.badgeLabel {
+  color: rgb(255 255 255 / 0.6);
+  font-size: var(--fs-2xs);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-weight: 500;
+}
+
+.eyebrow {
+  color: var(--color-secondary);
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  font-size: var(--fs-xs);
+  text-transform: uppercase;
+  margin-bottom: var(--space-md);
+  display: block;
+}
+
+.title {
+  color: var(--color-primary);
+  font-size: var(--fs-5xl);
+  font-weight: 300;
+  margin-bottom: var(--space-lg);
+  line-height: 1.25;
+}
+
+.text {
+  color: rgb(26 28 28 / 0.6);
+  font-weight: 300;
+  font-size: var(--fs-lg);
+  margin-bottom: var(--space-lg);
+  line-height: 1.7;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-md);
+  padding-top: var(--space-md);
+  border-top: 1px solid var(--color-outline-variant);
+}
+
+.statValue {
+  color: var(--color-primary);
+  font-size: var(--fs-2xl);
+  font-weight: 300;
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.statLabel {
+  color: rgb(26 28 28 / 0.4);
+  font-size: var(--fs-2xs);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+}
+
+@media (min-width: 768px) {
+  .badge {
+    display: flex;
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-2xl);
+  }
+
+  .stats {
+    gap: var(--space-lg);
+  }
+}

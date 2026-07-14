@@ -1,4 +1,5 @@
 import { Handshake, Package, Truck, RotateCcw } from "lucide-react";
+import styles from "./Services.module.css";
 
 const SERVICES = [
   {
@@ -29,34 +30,27 @@ const SERVICES = [
 
 export default function Services() {
   return (
-    <section className="bg-primary py-20 md:py-24" id="servicos">
-      <div className="max-w-[1280px] mx-auto px-8">
-        <div className="text-center mb-16 md:mb-24">
-          <span className="text-white/80 font-medium tracking-[0.2em] text-xs uppercase mb-4 block">
-            Soluções Logísticas
-          </span>
-          <h2 className="text-white text-4xl font-light mb-6">Serviços Oferecidos</h2>
-          <div className="w-16 h-1 bg-secondary mx-auto mb-6" />
-          <p className="text-white/60 max-w-xl mx-auto font-light">
+    <section className={styles.section} id="servicos">
+      <div className={styles.container}>
+        <div className={styles.header}>
+          <span className={styles.eyebrow}>Soluções Logísticas</span>
+          <h2 className={styles.title}>Serviços Oferecidos</h2>
+          <div className={styles.divider} />
+          <p className={styles.lead}>
             Especialização técnica e compromisso para garantir que sua mercadoria
             chegue ao destino com integridade total.
           </p>
         </div>
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
+        <div className={styles.grid}>
           {SERVICES.map(({ icon: Icon, title, description }) => (
-            <div
-              key={title}
-              className="bg-transparent p-8 border border-white/10 rounded-sm hover:bg-white/5 transition-all duration-500 flex flex-col h-full group"
-            >
-              <div className="mb-8">
-                <div className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center group-hover:border-white transition-colors">
-                  <Icon size={22} className="text-white" strokeWidth={1.5} />
+            <div key={title} className={styles.card}>
+              <div className={styles.iconWrap}>
+                <div className={styles.iconCircle}>
+                  <Icon size={22} className={styles.icon} strokeWidth={1.5} />
                 </div>
               </div>
-              <h3 className="text-white text-xl font-normal mb-4">{title}</h3>
-              <p className="text-white/70 font-light text-sm leading-relaxed mb-6">
-                {description}
-              </p>
+              <h3 className={styles.cardTitle}>{title}</h3>
+              <p className={styles.cardText}>{description}</p>
             </div>
           ))}
         </div>

@@ -1,0 +1,137 @@
+.section {
+  padding-block: var(--space-2xl);
+  background: #ffffff;
+}
+
+.container {
+  max-width: 1280px;
+  margin-inline: auto;
+  padding-inline: var(--space-gutter);
+}
+
+.header {
+  text-align: center;
+  margin-bottom: var(--space-2xl);
+}
+
+.eyebrow {
+  color: var(--color-secondary);
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  font-size: var(--fs-xs);
+  text-transform: uppercase;
+  margin-bottom: var(--space-sm);
+  display: block;
+}
+
+.title {
+  color: var(--color-primary);
+  font-size: var(--fs-4xl);
+  font-weight: 300;
+  margin-bottom: var(--space-md);
+}
+
+.divider {
+  width: 4rem;
+  height: 1px;
+  background: var(--color-outline-variant);
+  margin-inline: auto;
+  margin-bottom: var(--space-md);
+}
+
+.lead {
+  color: rgb(26 28 28 / 0.5);
+  max-width: 36rem;
+  margin-inline: auto;
+  font-weight: 300;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-lg);
+}
+
+.card {
+  padding: var(--space-lg);
+  border: 1px solid var(--color-outline-variant);
+  border-radius: var(--radius-sm);
+  transition: box-shadow 0.5s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.card:hover {
+  box-shadow: 0 20px 25px -5px rgb(0 17 58 / 0.05);
+}
+
+.stars {
+  display: flex;
+  gap: 0.25rem;
+  margin-bottom: var(--space-md);
+}
+
+.star {
+  color: var(--color-secondary);
+  fill: var(--color-secondary);
+}
+
+.quote {
+  color: rgb(26 28 28 / 0.7);
+  font-weight: 300;
+  font-style: italic;
+  margin-bottom: var(--space-lg);
+  line-height: 1.7;
+}
+
+.footer {
+  margin-top: auto;
+}
+
+.name {
+  color: var(--color-primary);
+  font-weight: 500;
+}
+
+.role {
+  color: rgb(26 28 28 / 0.4);
+  font-size: var(--fs-2xs);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin-top: var(--space-3xs);
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-md);
+  margin-top: var(--space-xl);
+}
+
+.controlButton {
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  border: 1px solid rgb(0 17 58 / 0.2);
+  color: var(--color-primary);
+  background: transparent;
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.controlButton:hover {
+  background: rgb(0 17 58 / 0.05);
+}
+
+.controlButton:active {
+  transform: scale(0.95);
+}
+
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

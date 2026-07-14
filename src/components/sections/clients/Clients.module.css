@@ -1,0 +1,53 @@
+.section {
+  padding-block: var(--space-2xl);
+  background: var(--color-surface-container);
+  border-top: 1px solid var(--color-outline-variant);
+  border-bottom: 1px solid var(--color-outline-variant);
+}
+
+.container {
+  max-width: 1280px;
+  margin-inline: auto;
+  padding-inline: var(--space-gutter);
+  margin-bottom: var(--space-lg);
+}
+
+.caption {
+  text-align: center;
+  color: rgb(26 28 28 / 0.4);
+  font-size: var(--fs-2xs);
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  font-weight: 500;
+}
+
+.marqueeOuter {
+  overflow: hidden;
+  display: flex;
+}
+
+.marqueeTrack {
+  display: flex;
+  gap: var(--space-2xl);
+  white-space: nowrap;
+  align-items: center;
+  padding-block: var(--space-lg);
+}
+
+.logoWrap {
+  position: relative;
+  height: 8rem;
+  width: 10rem;
+  flex-shrink: 0;
+}
+
+.logo {
+  object-fit: contain;
+  filter: grayscale(1);
+  transition: filter 0.3s ease;
+  cursor: default;
+}
+
+.logoWrap:hover .logo {
+  filter: grayscale(0);
+}

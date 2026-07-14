@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Star, ChevronLeft, ChevronRight } from "lucide-react";
+import styles from "./Testimonials.module.css";
 
 const TESTIMONIALS = [
   {
@@ -38,57 +39,46 @@ export default function Testimonials() {
   );
 
   return (
-    <section className="py-24 bg-white" id="depoimentos">
-      <div className="max-w-[1280px] mx-auto px-8">
-        <div className="text-center mb-16">
-          <span className="text-secondary font-medium tracking-[0.2em] text-xs uppercase mb-4 block">
-            Depoimentos
-          </span>
-          <h2 className="text-primary text-4xl font-light mb-6">
-            O que nossos clientes dizem
-          </h2>
-          <div className="w-16 h-px bg-outline-variant mx-auto mb-6" />
-          <p className="text-on-surface/50 max-w-xl mx-auto font-light">
+    <section className={styles.section} id="depoimentos">
+      <div className={styles.container}>
+        <div className={styles.header}>
+          <span className={styles.eyebrow}>Depoimentos</span>
+          <h2 className={styles.title}>O que nossos clientes dizem</h2>
+          <div className={styles.divider} />
+          <p className={styles.lead}>
             A confiança de quem move o Brasil conosco todos os dias.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className={styles.grid}>
           {ordered.map((t) => (
-            <div
-              key={t.name}
-              className="p-8 border border-outline-variant rounded-sm hover:shadow-xl hover:shadow-primary/5 transition-all duration-500 flex flex-col"
-            >
-              <div className="flex gap-1 mb-6">
+            <div key={t.name} className={styles.card}>
+              <div className={styles.stars}>
                 {Array.from({ length: 5 }).map((_, i) => (
-                  <Star key={i} size={14} className="text-secondary fill-secondary" />
+                  <Star key={i} size={14} className={styles.star} />
                 ))}
               </div>
-              <p className="text-on-surface/70 font-light italic mb-8 leading-relaxed">
-                &ldquo;{t.quote}&rdquo;
-              </p>
-              <div className="mt-auto">
-                <p className="text-primary font-medium">{t.name}</p>
-                <p className="text-on-surface/40 text-[10px] uppercase tracking-widest mt-1">
-                  {t.role}
-                </p>
+              <p className={styles.quote}>&ldquo;{t.quote}&rdquo;</p>
+              <div className={styles.footer}>
+                <p className={styles.name}>{t.name}</p>
+                <p className={styles.role}>{t.role}</p>
               </div>
             </div>
           ))}
         </div>
 
-        <div className="flex justify-center items-center gap-6 mt-12">
+        <div className={styles.controls}>
           <button
             aria-label="Depoimento anterior"
             onClick={prev}
-            className="w-12 h-12 flex items-center justify-center rounded-full border border-primary/20 text-primary hover:bg-primary/5 transition-all active:scale-95"
+            className={styles.controlButton}
           >
             <ChevronLeft size={20} strokeWidth={1.5} />
           </button>
           <button
             aria-label="Próximo depoimento"
             onClick={next}
-            className="w-12 h-12 flex items-center justify-center rounded-full border border-primary/20 text-primary hover:bg-primary/5 transition-all active:scale-95"
+            className={styles.controlButton}
           >
             <ChevronRight size={20} strokeWidth={1.5} />
           </button>

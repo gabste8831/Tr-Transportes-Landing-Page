@@ -1,4 +1,5 @@
 import Image from "next/image";
+import styles from "./Team.module.css";
 
 const TEAM = [
   {
@@ -29,34 +30,30 @@ const TEAM = [
 
 export default function Team() {
   return (
-    <section className="py-20 bg-white" id="equipe">
-      <div className="max-w-[1280px] mx-auto px-8">
-        <div className="flex flex-col md:flex-row justify-between items-end gap-8 mb-10">
+    <section className={styles.section} id="equipe">
+      <div className={styles.container}>
+        <div className={styles.headerRow}>
           <div>
-            <span className="text-secondary font-medium tracking-[0.2em] text-xs uppercase mb-4 block">
-              Nossa Equipe
-            </span>
-            <h2 className="text-primary text-4xl font-light">Capital Humano</h2>
-            <p className="text-on-surface/50 font-light mt-4">
+            <span className={styles.eyebrow}>Nossa Equipe</span>
+            <h2 className={styles.title}>Capital Humano</h2>
+            <p className={styles.subtitle}>
               Especialistas comprometidos com a excelência do seu frete.
             </p>
           </div>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-16">
+        <div className={styles.grid}>
           {TEAM.map((person) => (
-            <div key={person.name} className="group">
-              <div className="aspect-[3/4] overflow-hidden transition-all duration-700 mb-8 border border-outline-variant relative">
+            <div key={person.name} className={styles.card}>
+              <div className={styles.imageFrame}>
                 <Image
                   src={person.image}
                   alt={person.name}
                   fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-700"
+                  className={styles.image}
                 />
               </div>
-              <h4 className="text-primary text-lg font-normal">{person.name}</h4>
-              <p className="text-on-surface/40 text-[10px] uppercase tracking-widest mt-2">
-                {person.role}
-              </p>
+              <h4 className={styles.name}>{person.name}</h4>
+              <p className={styles.role}>{person.role}</p>
             </div>
           ))}
         </div>
