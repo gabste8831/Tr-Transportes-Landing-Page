@@ -33,15 +33,15 @@
 
 .title {
   color: var(--color-primary);
-  font-size: var(--fs-4xl);
+  font-size: var(--fs-3xl);
   font-weight: 300;
-  margin-bottom: var(--space-lg);
+  margin-bottom: var(--space-md);
 }
 
 .lead {
   color: rgb(26 28 28 / 0.6);
   font-weight: 300;
-  font-size: var(--fs-lg);
+  font-size: var(--fs-md);
   line-height: 1.7;
 }
 
@@ -218,11 +218,11 @@
 .submitButton {
   width: 100%;
   border: 1px solid var(--color-outline-variant);
-  padding-block: var(--space-md);
+  padding: var(--space-xs) var(--space-sm);
   color: var(--color-primary);
   font-weight: 500;
   letter-spacing: 0.15em;
-  font-size: var(--fs-xs);
+  font-size: var(--fs-2xs);
   text-transform: uppercase;
   background: transparent;
   transition: background 0.3s ease, color 0.3s ease;

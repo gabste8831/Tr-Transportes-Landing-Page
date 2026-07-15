@@ -26,7 +26,7 @@
 
 .title {
   color: #ffffff;
-  font-size: var(--fs-4xl);
+  font-size: var(--fs-3xl);
   font-weight: 300;
   margin-bottom: var(--space-md);
 }
@@ -38,12 +38,25 @@
   margin-inline: auto;
 }
 
+/* ---- Carrossel (base / < 960px) ---- */
 .grid {
-  display: grid;
-  gap: var(--space-xl);
+  position: relative;
+  display: flex;
+  gap: var(--space-md);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-block: var(--space-3xs);
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.grid::-webkit-scrollbar {
+  display: none;
 }
 
 .card {
+  flex: 0 0 80%;
+  scroll-snap-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -51,6 +64,7 @@
   padding: var(--space-lg);
   border: 1px solid rgb(255 255 255 / 0.1);
   border-radius: var(--radius-sm);
+  margin: 0 10%;
 }
 
 .iconCircle {
@@ -86,8 +100,46 @@
   color: #ffffff;
 }
 
-@media (min-width: 768px) {
+/* ---- Bolinhas de paginação ---- */
+.dots {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-xs);
+  margin-top: var(--space-lg);
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  border: none;
+  border-radius: 999px;
+  background: rgb(255 255 255 / 0.3);
+  cursor: pointer;
+  transition: background 0.25s ease, width 0.25s ease;
+}
+
+.dotActive {
+  width: 24px;
+  background: var(--color-secondary);
+}
+
+/* ---- Grade de 3 colunas (>= 960px) ---- */
+@media (min-width: 960px) {
   .grid {
+    display: grid;
     grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-xl);
+    overflow: visible;
+    margin-inline: 0;
+    padding-inline: 0;
+  }
+
+  .card {
+    flex: initial;
+  }
+
+  .dots {
+    display: none;
   }
 }

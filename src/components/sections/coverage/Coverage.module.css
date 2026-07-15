@@ -1,7 +1,8 @@
 .section {
   background: #ffffff;
   overflow: hidden;
-  padding-block: var(--space-section-md);
+  padding-top: var(--space-section-md);
+  padding-bottom: clamp(1.5rem, 1rem + 2vw, 5rem);
 }
 
 .container {
@@ -12,14 +13,14 @@
 
 .grid {
   display: grid;
-  gap: var(--space-xl);
+  gap: var(--space-md);
   align-items: center;
 }
 
 .left {
   display: flex;
   flex-direction: column;
-  gap: var(--space-sm);
+  gap: var(--space-xs);
 }
 
 .eyebrow {
@@ -28,7 +29,7 @@
   letter-spacing: 0.2em;
   font-size: var(--fs-xs);
   text-transform: uppercase;
-  margin-bottom: var(--space-md);
+  margin-bottom: var(--space-base);
   display: block;
 }
 
@@ -36,15 +37,16 @@
   color: var(--color-primary);
   font-size: var(--fs-4xl);
   font-weight: 300;
-  margin-bottom: var(--space-lg);
+  margin-bottom: 1.2rem;
 }
 
 .text {
   color: rgb(26 28 28 / 0.6);
   font-weight: 300;
-  font-size: var(--fs-lg);
-  margin-bottom: var(--space-lg);
+  font-size: var(--fs-cs);
+  margin-bottom: var(--space-sm);
   line-height: 1.7;
+  max-width: 500px;
 }
 
 .highlight {
@@ -55,15 +57,16 @@
 .list {
   display: flex;
   flex-direction: column;
-  gap: var(--space-sm);
+  gap: var(--space-3xs);
 }
 
 .listItem {
   display: flex;
   align-items: center;
   gap: var(--space-sm);
-  padding-block: var(--space-sm);
+  padding-block: var(--space-xs);
   border-bottom: 1px solid var(--color-outline-variant);
+  max-width: 400px;
 }
 
 .listItem:last-child {
@@ -79,14 +82,17 @@
   font-weight: 300;
 }
 
-.imageFrame {
-  overflow: hidden;
-  aspect-ratio: 1 / 1;
-  position: relative;
+.imageWrap {
+  max-width: 500px;
+  margin-inline: auto;
+  width: 100%;
 }
 
 .image {
-  object-fit: cover;
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 14px;
 }
 
 @media (min-width: 1024px) {
@@ -101,6 +107,5 @@
 
   .imageWrap {
     grid-column: span 6;
-    position: relative;
   }
 }

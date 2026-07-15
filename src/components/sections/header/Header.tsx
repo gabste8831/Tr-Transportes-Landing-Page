@@ -28,7 +28,7 @@ export default function Header() {
             <a
               key={link.href}
               href={link.href}
-              className={`${styles.link} ${i === 0 ? styles.linkActive : ""}`}
+              className={styles.link}
             >
               {link.label}
             </a>
@@ -44,8 +44,7 @@ export default function Header() {
         </button>
       </nav>
 
-      {open && (
-        <div className={styles.mobileMenu}>
+      <div className={`${styles.mobileMenu} ${open ? styles.mobileMenuOpen : ""}`}>
           {NAV_LINKS.map((link) => (
             <a
               key={link.href}
@@ -57,7 +56,6 @@ export default function Header() {
             </a>
           ))}
         </div>
-      )}
     </header>
   );
 }

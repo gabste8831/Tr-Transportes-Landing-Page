@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { MapPin, Circle, Clock } from "lucide-react";
 import styles from "./Coverage.module.css";
 
@@ -35,14 +34,11 @@ export default function Coverage() {
             </div>
           </div>
           <div className={styles.imageWrap}>
-            <div className={styles.imageFrame}>
-              <Image
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuA7mV8c4rKIdl0UBpcJ2BK38xkr6tpnRw0wm8HQ1wMbixb5TGzafAPIfybTfWyPKkkjC33LjRsRRHMK8YlTnvlqTafqcn1DkHoIZFCUvebxMSUA3doyw1tLm84MI0gJH2kZAxhiEIUdKDm_yYq-Dtpe_Ad-yWzM-Mj3q0KD4S4rYaPYtraXKW_-rn2aPKRfFsgrGIFRsRH2JVZUP9XLbC8htcDwdQGrj0ujJUUy0gYpXoztrmIkyUbwhj-GVk1INecKV69gylz7gi4"
-                alt="Mapa de Atuação Vicente Transportes"
-                fill
-                className={styles.image}
-              />
-            </div>
+            <img
+              src="/images/Image_SC.jpg"
+              alt="Mapa de Atuação Vicente Transportes"
+              className={styles.image}
+            />
           </div>
         </div>
       </div>

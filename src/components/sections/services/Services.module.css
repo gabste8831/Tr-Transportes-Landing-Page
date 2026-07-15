@@ -26,7 +26,7 @@
 
 .title {
   color: #ffffff;
-  font-size: var(--fs-4xl);
+  font-size: var(--fs-3xl);
   font-weight: 300;
   margin-bottom: var(--space-md);
 }
@@ -46,13 +46,24 @@
   font-weight: 300;
 }
 
+/* ---- Carrossel (base / < 768px) ---- */
 .grid {
-  display: grid;
-  grid-template-columns: 1fr;
+  display: flex;
   gap: var(--space-lg);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-block: var(--space-3xs);
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.grid::-webkit-scrollbar {
+  display: none;
 }
 
 .card {
+  flex: 0 0 100%;
+  scroll-snap-align: center;
   background: transparent;
   padding: var(--space-lg);
   border: 1px solid rgb(255 255 255 / 0.1);
@@ -60,7 +71,7 @@
   transition: background 0.5s ease;
   display: flex;
   flex-direction: column;
-  height: 100%;
+  height: auto;
 }
 
 .card:hover {
@@ -105,12 +116,50 @@
   margin-bottom: var(--space-md);
 }
 
+/* ---- Bolinhas de paginação ---- */
+.dots {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-xs);
+  margin-top: var(--space-lg);
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  border: none;
+  border-radius: 999px;
+  background: rgb(255 255 255 / 0.3);
+  cursor: pointer;
+  transition: background 0.25s ease, width 0.25s ease;
+}
+
+.dotActive {
+  width: 24px;
+  background: var(--color-secondary);
+}
+
+/* ---- Grade 2 colunas (>= 768px) ---- */
 @media (min-width: 768px) {
   .grid {
+    display: grid;
     grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-lg);
+    overflow: visible;
+  }
+
+  .card {
+    flex: initial;
+    height: 100%;
+  }
+
+  .dots {
+    display: none;
   }
 }
 
+/* ---- Grade 4 colunas (>= 1024px) ---- */
 @media (min-width: 1024px) {
   .grid {
     grid-template-columns: repeat(4, 1fr);
