@@ -40,34 +40,33 @@
 
 /* Carousel arrows, shown next to the section header on tablet/desktop
    and stacked below it on mobile (headerRow gap handles the spacing). */
-.arrows {
+.controls {
   display: flex;
+  justify-content: center;
+  align-items: center;
   gap: var(--space-sm);
-  align-self: flex-start;
+  margin-top: var(--space-xl);
 }
 
-.arrowButton {
-  width: 48px;
-  height: 48px;
-  border-radius: 9999px;
-  border: 1px solid rgb(0 17 58 / 0.2);
-  background: transparent;
-  color: var(--color-primary);
-  font-size: 22px;
-  line-height: 1;
-  cursor: pointer;
+.controlButton {
+  width: 3rem;
+  height: 3rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background-color 0.2s ease, transform 0.15s ease;
+  border-radius: 999px;
+  border: 1px solid rgb(0 17 58 / 0.2);
+  color: var(--color-primary);
+  background: transparent;
+  transition: background 0.2s ease, transform 0.1s ease;
 }
 
-.arrowButton:hover {
+.controlButton:hover {
   background: rgb(0 17 58 / 0.05);
 }
 
-.arrowButton:active {
-  transform: scale(0.94);
+.controlButton:active {
+  transform: scale(0.95);
 }
 
 /* Carousel viewport: fixed to the container width, clips the sliding track.
@@ -103,11 +102,6 @@
 
 .image {
   object-fit: cover;
-  transition: transform 0.7s ease;
-}
-
-.card:hover .image {
-  transform: scale(1.05);
 }
 
 .name {

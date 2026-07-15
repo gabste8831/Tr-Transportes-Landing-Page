@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import styles from "./Team.module.css";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const TEAM = [
   {
@@ -113,22 +114,22 @@ export default function Team() {
           </div>
 
           {maxIndex > 0 && (
-            <div className={styles.arrows}>
+            <div className={styles.controls}>
               <button
                 type="button"
-                aria-label="Pessoa anterior"
-                className={styles.arrowButton}
-                onClick={() => handleNav(index - 1)}
+                aria-label="Depoimento anterior"
+                onClick={() => goTo(index - 1)}
+                className={styles.controlButton}
               >
-                <span aria-hidden="true">‹</span>
+                <ChevronLeft size={20} strokeWidth={1.5} />
               </button>
               <button
                 type="button"
-                aria-label="Próxima pessoa"
-                className={styles.arrowButton}
-                onClick={() => handleNav(index + 1)}
+                aria-label="Próximo depoimento"
+                onClick={() => goTo(index + 1)}
+                className={styles.controlButton}
               >
-                <span aria-hidden="true">›</span>
+                <ChevronRight size={20} strokeWidth={1.5} />
               </button>
             </div>
           )}

@@ -137,6 +137,7 @@
 
   .card {
     flex: initial;
+    margin: 0 !important;
   }
 
   .dots {
