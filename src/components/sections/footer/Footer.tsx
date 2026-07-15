@@ -6,10 +6,12 @@ export default function Footer() {
     <footer className={styles.footer}>
       <div className={styles.container}>
         <div className={styles.grid}>
-          <div className={`${styles.brandCol}`}>
-            <div className={styles.logo}>
-              VICENTE <span className={styles.logoLight}>TRANSPORTES</span>
-            </div>
+          <div className={styles.brandCol}>
+            <img
+              src="/images/logo_tr.svg"
+              alt="Vicente Transportes"
+              className={styles.logo}
+            />
             <p className={styles.brandText}>
               Soluções logísticas inteligentes e seguras para conectar o seu
               negócio ao futuro.

@@ -7,14 +7,14 @@
 .container {
   max-width: 1280px;
   margin-inline: auto;
-  padding: var(--space-2xl) var(--space-gutter);
+  padding: var(--space-xl) var(--space-gutter);
 }
 
 .grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: var(--space-xl);
-  margin-bottom: var(--space-2xl);
+  margin-bottom: var(--space-xl);
 }
 
 .brandCol {
@@ -24,16 +24,9 @@
 }
 
 .logo {
-  color: #ffffff;
-  font-size: var(--fs-2xl);
-  font-weight: 500;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  white-space: nowrap;
-}
-
-.logoLight {
-  font-weight: 300;
+  height: 50px;
+  width: max-content;
+  display: block;
 }
 
 .brandText {
@@ -57,6 +50,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
   transition: background 0.2s ease, border-color 0.2s ease;
 }
 
@@ -84,6 +78,7 @@
 
 .linkList a {
   transition: color 0.2s ease;
+  word-break: break-word;
 }
 
 .linkList a:hover {
@@ -98,6 +93,7 @@
 
 .contactIcon {
   color: rgb(255 255 255 / 0.4);
+  flex-shrink: 0;
 }
 
 .address {
@@ -131,9 +127,35 @@
   margin-top: 0.25rem;
 }
 
-@media (min-width: 768px) {
+/* Tablet: brand takes the full width, nav/contact/location pair up
+   into a 2-column grid instead of staying fully stacked. */
+@media (min-width: 640px) {
+  /* .logo {
+    height: 32px;
+  } */
+
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .brandCol {
+    grid-column: 1 / -1;
+  }
+
+  .brandText {
+    max-width: 28rem;
+  }
+}
+
+/* Desktop: original 12-column layout. */
+@media (min-width: 1024px) {
+  .container {
+    padding-block: var(--space-2xl);
+  }
+
   .grid {
     grid-template-columns: repeat(12, 1fr);
+    margin-bottom: var(--space-2xl);
   }
 
   .brandCol {
