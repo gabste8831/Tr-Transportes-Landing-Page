@@ -8,7 +8,7 @@ export default function Footer() {
         <div className={styles.grid}>
           <div className={styles.brandCol}>
             <img
-              src="/images/logo_tr.svg"
+              src="/images/logo_tr_branca.svg"
               alt="Vicente Transportes"
               className={styles.logo}
             />
