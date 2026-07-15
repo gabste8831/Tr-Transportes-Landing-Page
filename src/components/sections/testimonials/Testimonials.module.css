@@ -46,10 +46,27 @@
   font-weight: 300;
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--space-lg);
+/* Carousel viewport: clips the sliding track. Width/margin extend it just
+   enough to cancel out the cardOuter side padding, so the first and last
+   cards line up with the container edge (same fix as the Team carousel). */
+.viewport {
+  overflow: hidden;
+  width: calc(100% + var(--space-lg));
+  margin-inline: calc(var(--space-lg) / -2);
+}
+
+/* Width/transform are computed in JS from testimonial count + visible count,
+   so this keeps working regardless of how many testimonials there are. */
+.track {
+  display: flex;
+  transition: transform 0.6s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+/* Spacing wrapper only — the visual card (.card) keeps its own padding untouched. */
+.cardOuter {
+  flex: 0 0 auto;
+  padding-inline: calc(var(--space-lg) / 2);
+  box-sizing: border-box;
 }
 
 .card {
@@ -59,6 +76,7 @@
   transition: box-shadow 0.5s ease;
   display: flex;
   flex-direction: column;
+  height: 100%;
 }
 
 .card:hover {
@@ -128,10 +146,4 @@
 
 .controlButton:active {
   transform: scale(0.95);
-}
-
-@media (min-width: 768px) {
-  .grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
 }
