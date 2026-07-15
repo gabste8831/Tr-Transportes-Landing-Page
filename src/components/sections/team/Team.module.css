@@ -38,18 +38,63 @@
   margin-top: var(--space-sm);
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--space-lg) var(--space-md);
+/* Carousel arrows, shown next to the section header on tablet/desktop
+   and stacked below it on mobile (headerRow gap handles the spacing). */
+.arrows {
+  display: flex;
+  gap: var(--space-sm);
+  align-self: flex-start;
+}
+
+.arrowButton {
+  width: 48px;
+  height: 48px;
+  border-radius: 9999px;
+  border: 1px solid rgb(0 17 58 / 0.2);
+  background: transparent;
+  color: var(--color-primary);
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease, transform 0.15s ease;
+}
+
+.arrowButton:hover {
+  background: rgb(0 17 58 / 0.05);
+}
+
+.arrowButton:active {
+  transform: scale(0.94);
+}
+
+/* Carousel viewport: fixed to the container width, clips the sliding track.
+   Negative margin cancels out the card's own padding-inline so the first
+   and last photos line up with the container edge, same as the title above. */
+.viewport {
+  overflow: hidden;
+  width: calc(100% + var(--space-md));
+  margin-inline: calc(var(--space-md) / -2);
+}
+
+/* Track is wider than the viewport (one segment per visible slot) and
+   slides via transform; width/transform are computed in JS since the
+   number of team members and the visible count are both dynamic. */
+.track {
+  display: flex;
+  transition: transform 0.6s cubic-bezier(0.65, 0, 0.35, 1);
 }
 
 .card {
-  /* wraps image + text, enables hover zoom below */
+  flex: 0 0 auto;
+  padding-inline: calc(var(--space-md) / 2);
+  box-sizing: border-box;
 }
 
 .imageFrame {
-  aspect-ratio: 3 / 4;
+  height: 400px;
   overflow: hidden;
   margin-bottom: var(--space-lg);
   border: 1px solid var(--color-outline-variant);
@@ -79,22 +124,14 @@
   margin-top: var(--space-2xs);
 }
 
-@media (min-width: 640px) {
-  .grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
 @media (min-width: 768px) {
   .headerRow {
     flex-direction: row;
     justify-content: space-between;
     align-items: flex-end;
   }
-}
 
-@media (min-width: 1024px) {
-  .grid {
-    grid-template-columns: repeat(4, 1fr);
+  .arrows {
+    align-self: auto;
   }
 }

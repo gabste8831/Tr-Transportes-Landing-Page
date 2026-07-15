@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import styles from "./Team.module.css";
 
@@ -28,7 +31,75 @@ const TEAM = [
   },
 ];
 
+const AUTOPLAY_MS = 8000;
+
+/** 1 card on phones, 2 on tablets, 3 from desktop up — matches the breakpoints
+ *  already used elsewhere in the design (640px / 1024px). */
+function useVisibleCount() {
+  const [visible, setVisible] = useState(3);
+
+  useEffect(() => {
+    const update = () => {
+      const w = window.innerWidth;
+      if (w < 640) setVisible(1);
+      else if (w < 1024) setVisible(2);
+      else setVisible(3);
+    };
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
+
+  return visible;
+}
+
 export default function Team() {
+  const visible = useVisibleCount();
+  const count = TEAM.length;
+  const maxIndex = Math.max(0, count - visible);
+  const [index, setIndex] = useState(0);
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  // keep index in range if the breakpoint changes and shrinks maxIndex
+  useEffect(() => {
+    setIndex((i) => Math.min(i, maxIndex));
+  }, [maxIndex]);
+
+  const stopAutoplay = () => {
+    if (timerRef.current) {
+      clearInterval(timerRef.current);
+      timerRef.current = null;
+    }
+  };
+
+  const startAutoplay = () => {
+    stopAutoplay();
+    if (maxIndex === 0) return; // nothing to slide to
+    timerRef.current = setInterval(() => {
+      setIndex((i) => (i >= maxIndex ? 0 : i + 1));
+    }, AUTOPLAY_MS);
+  };
+
+  useEffect(() => {
+    startAutoplay();
+    return stopAutoplay;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [maxIndex]);
+
+  const goTo = (nextIndex: number) => {
+    const span = maxIndex + 1;
+    setIndex(((nextIndex % span) + span) % span);
+  };
+
+  const handleNav = (nextIndex: number) => {
+    goTo(nextIndex);
+    startAutoplay(); // manual navigation resets the 8s timer
+  };
+
+  const trackWidthPercent = (count / visible) * 100;
+  const translatePercent = (index * 100) / count;
+  const cardBasisPercent = 100 / count;
+
   return (
     <section className={styles.section} id="equipe">
       <div className={styles.container}>
@@ -40,22 +111,63 @@ export default function Team() {
               Especialistas comprometidos com a excelência do seu frete.
             </p>
           </div>
-        </div>
-        <div className={styles.grid}>
-          {TEAM.map((person) => (
-            <div key={person.name} className={styles.card}>
-              <div className={styles.imageFrame}>
-                <Image
-                  src={person.image}
-                  alt={person.name}
-                  fill
-                  className={styles.image}
-                />
-              </div>
-              <h4 className={styles.name}>{person.name}</h4>
-              <p className={styles.role}>{person.role}</p>
+
+          {maxIndex > 0 && (
+            <div className={styles.arrows}>
+              <button
+                type="button"
+                aria-label="Pessoa anterior"
+                className={styles.arrowButton}
+                onClick={() => handleNav(index - 1)}
+              >
+                <span aria-hidden="true">‹</span>
+              </button>
+              <button
+                type="button"
+                aria-label="Próxima pessoa"
+                className={styles.arrowButton}
+                onClick={() => handleNav(index + 1)}
+              >
+                <span aria-hidden="true">›</span>
+              </button>
             </div>
-          ))}
+          )}
+        </div>
+
+        <div
+          className={styles.viewport}
+          onMouseEnter={stopAutoplay}
+          onMouseLeave={startAutoplay}
+          role="region"
+          aria-label="Carrossel da equipe"
+        >
+          <div
+            className={styles.track}
+            style={{
+              width: `${trackWidthPercent}%`,
+              transform: `translateX(-${translatePercent}%)`,
+            }}
+          >
+            {TEAM.map((person) => (
+              <div
+                key={person.name}
+                className={styles.card}
+                style={{ flexBasis: `${cardBasisPercent}%` }}
+              >
+                <div className={styles.imageFrame}>
+                  <Image
+                    src={person.image}
+                    alt={person.name}
+                    fill
+                    className={styles.image}
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  />
+                </div>
+                <h4 className={styles.name}>{person.name}</h4>
+                <p className={styles.role}>{person.role}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
