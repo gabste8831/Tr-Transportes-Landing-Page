@@ -111,13 +111,13 @@ export default function Footer() {
             rel="noopener noreferrer"
             className={styles.credit}
           >
-            <span className={styles.creditText}>Desenvolvido por Gabriel Steffens</span>
             <img
-              src="/images/logo_tr_branca.svg"
+              src="/images/logo_gabdev_2.svg"
               alt=""
               aria-hidden="true"
               className={styles.creditLogo}
             />
+            <span className={styles.creditText}>Desenvolvido por <a>Gabriel Steffens</a></span>
           </a>
         </div>
       </div>

@@ -29,12 +29,9 @@
   --space-lg: clamp(2rem, 1.7rem + 1.5vw, 3rem);
   --space-xl: clamp(2.5rem, 2rem + 2.5vw, 4rem);
   --space-2xl: clamp(3rem, 2.2rem + 4vw, 5rem);
-  --space-section: clamp(4rem, 2.6rem + 7vw, 10rem);
-  /* era 160px fixo */
-  --space-section-md: clamp(3.5rem, 2.5rem + 5vw, 7.5rem);
-  /* era 120px fixo */
-  --space-gutter: clamp(1.25rem, 1rem + 1.25vw, 2rem);
-  /* padding lateral */
+  --space-section: clamp(4rem, 2.6rem + 7vw, 10rem);      /* era 160px fixo */
+  --space-section-md: clamp(3.5rem, 2.5rem + 5vw, 7.5rem); /* era 120px fixo */
+  --space-gutter: clamp(1.25rem, 1rem + 1.25vw, 2rem);     /* padding lateral */
 
   /* Tipografia fluida */
   --fs-2xs: clamp(0.625rem, 0.6rem + 0.1vw, 0.6875rem);
@@ -55,9 +52,7 @@
 }
 
 /* Reset simples */
-*,
-*::before,
-*::after {
+*, *::before, *::after {
   box-sizing: border-box;
 }
 
@@ -84,10 +79,7 @@ a {
   text-decoration: none;
 }
 
-button,
-input,
-select,
-textarea {
+button, input, select, textarea {
   font-family: inherit;
   color: inherit;
 }
@@ -96,13 +88,7 @@ button {
   cursor: pointer;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-p,
-ul {
+h1, h2, h3, h4, h5, p, ul {
   margin: 0;
   padding: 0;
 }
@@ -124,7 +110,6 @@ ul {
   0% {
     transform: translateX(0);
   }
-
   100% {
     transform: translateX(-50%);
   }
