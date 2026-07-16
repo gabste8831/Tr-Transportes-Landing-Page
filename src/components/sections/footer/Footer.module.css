@@ -127,6 +127,43 @@
   margin-top: 0.25rem;
 }
 
+.bottom {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+/* Crédito do desenvolvedor */
+.credit {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  color: rgb(255 255 255 / 0.5);
+  transition: color 0.2s ease;
+}
+
+.credit:hover {
+  color: #ffffff;
+}
+
+.creditText {
+  font-size: var(--fs-2xs);
+  letter-spacing: 0.05em;
+}
+
+.creditLogo {
+  height: 1rem;
+  width: auto;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+}
+
+.credit:hover .creditLogo {
+  opacity: 1;
+}
+
 /* Tablet: brand takes the full width, nav/contact/location pair up
    into a 2-column grid instead of staying fully stacked. */
 @media (min-width: 640px) {
