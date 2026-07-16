@@ -90,8 +90,8 @@
 }
 
 .star {
-  color: var(--color-secondary);
-  fill: var(--color-secondary);
+  color: #ffd000;
+  fill: #ffd000;
 }
 
 .quote {

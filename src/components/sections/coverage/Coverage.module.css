@@ -2,7 +2,7 @@
   background: #ffffff;
   overflow: hidden;
   padding-top: var(--space-section-md);
-  padding-bottom: clamp(1.5rem, 1rem + 2vw, 5rem);
+  padding-bottom: var(--space-section-md);
 }
 
 .container {

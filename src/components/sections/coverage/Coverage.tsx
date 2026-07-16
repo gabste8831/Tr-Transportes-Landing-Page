@@ -35,7 +35,7 @@ export default function Coverage() {
           </div>
           <div className={styles.imageWrap}>
             <img
-              src="/images/Image_SC.jpg"
+              src="/images/Image_SC.png"
               alt="Mapa de Atuação Vicente Transportes"
               className={styles.image}
             />

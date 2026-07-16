@@ -30,21 +30,33 @@ const TEAM = [
     image:
       "https://lh3.googleusercontent.com/aida-public/AB6AXuCXVLapT6j00CCbZOVS1iq9SM2F5jYy-D1obWJFtw2-gC3XlWbQu1aM4ngK2p7cLyiA8eRJ5T-1jyQLWRK1DagL5lMOP1zeqpEh0eElNUXFXn5wECCLlACR9YHYagURuun-rfK0OwQOxJQNoZIXOVjj2i60YTvKNdTNE49jVbyYJpSmrnSE5eDQkVXq3wo822PkQZhpo9gG88ASZu6y9Y4kGogSqASJk2K5tfwXiJ2CFqY7Aw11Jrg7BnlNQM98xbuIb1P7YwjKoRI",
   },
+  {
+    name: "Julia Mendes2",
+    role: "Relacionamento Corporativo",
+    image:
+      "https://lh3.googleusercontent.com/aida-public/AB6AXuCXVLapT6j00CCbZOVS1iq9SM2F5jYy-D1obWJFtw2-gC3XlWbQu1aM4ngK2p7cLyiA8eRJ5T-1jyQLWRK1DagL5lMOP1zeqpEh0eElNUXFXn5wECCLlACR9YHYagURuun-rfK0OwQOxJQNoZIXOVjj2i60YTvKNdTNE49jVbyYJpSmrnSE5eDQkVXq3wo822PkQZhpo9gG88ASZu6y9Y4kGogSqASJk2K5tfwXiJ2CFqY7Aw11Jrg7BnlNQM98xbuIb1P7YwjKoRI",
+  },
+  {
+    name: "fábio Vicente",
+    role: "Relacionamento Corporativo",
+    image:
+      "https://lh3.googleusercontent.com/aida-public/AB6AXuCXVLapT6j00CCbZOVS1iq9SM2F5jYy-D1obWJFtw2-gC3XlWbQu1aM4ngK2p7cLyiA8eRJ5T-1jyQLWRK1DagL5lMOP1zeqpEh0eElNUXFXn5wECCLlACR9YHYagURuun-rfK0OwQOxJQNoZIXOVjj2i60YTvKNdTNE49jVbyYJpSmrnSE5eDQkVXq3wo822PkQZhpo9gG88ASZu6y9Y4kGogSqASJk2K5tfwXiJ2CFqY7Aw11Jrg7BnlNQM98xbuIb1P7YwjKoRI",
+  },
 ];
 
 const AUTOPLAY_MS = 8000;
 
-/** 1 card on phones, 2 on tablets, 3 from desktop up — matches the breakpoints
+/** 1 card on phones, 2 on tablets, 4 from desktop up — matches the breakpoints
  *  already used elsewhere in the design (640px / 1024px). */
 function useVisibleCount() {
-  const [visible, setVisible] = useState(3);
+  const [visible, setVisible] = useState(4);
 
   useEffect(() => {
     const update = () => {
       const w = window.innerWidth;
       if (w < 640) setVisible(1);
       else if (w < 1024) setVisible(2);
-      else setVisible(3);
+      else setVisible(4);
     };
     update();
     window.addEventListener("resize", update);
@@ -114,11 +126,11 @@ export default function Team() {
           </div>
 
           {maxIndex > 0 && (
-            <div className={styles.controls}>
+            <div className={`${styles.controls} ${styles.controlsDesktop}`}>
               <button
                 type="button"
                 aria-label="Depoimento anterior"
-                onClick={() => goTo(index - 1)}
+                onClick={() => handleNav(index - 1)}
                 className={styles.controlButton}
               >
                 <ChevronLeft size={20} strokeWidth={1.5} />
@@ -126,7 +138,7 @@ export default function Team() {
               <button
                 type="button"
                 aria-label="Próximo depoimento"
-                onClick={() => goTo(index + 1)}
+                onClick={() => handleNav(index + 1)}
                 className={styles.controlButton}
               >
                 <ChevronRight size={20} strokeWidth={1.5} />
@@ -161,7 +173,7 @@ export default function Team() {
                     alt={person.name}
                     fill
                     className={styles.image}
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                   />
                 </div>
                 <h4 className={styles.name}>{person.name}</h4>
@@ -170,6 +182,27 @@ export default function Team() {
             ))}
           </div>
         </div>
+
+        {maxIndex > 0 && (
+          <div className={`${styles.controls} ${styles.controlsMobile}`}>
+            <button
+              type="button"
+              aria-label="Depoimento anterior"
+              onClick={() => handleNav(index - 1)}
+              className={styles.controlButton}
+            >
+              <ChevronLeft size={20} strokeWidth={1.5} />
+            </button>
+            <button
+              type="button"
+              aria-label="Próximo depoimento"
+              onClick={() => handleNav(index + 1)}
+              className={styles.controlButton}
+            >
+              <ChevronRight size={20} strokeWidth={1.5} />
+            </button>
+          </div>
+        )}
       </div>
     </section>
   );

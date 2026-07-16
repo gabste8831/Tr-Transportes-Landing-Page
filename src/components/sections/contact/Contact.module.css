@@ -35,7 +35,7 @@
   color: var(--color-primary);
   font-size: var(--fs-3xl);
   font-weight: 300;
-  margin-bottom: var(--space-md);
+  margin-bottom: var(--space-xs);
 }
 
 .lead {
@@ -43,12 +43,13 @@
   font-weight: 300;
   font-size: var(--fs-md);
   line-height: 1.7;
+  max-width: 500px;
 }
 
 .detailsList {
   display: flex;
   flex-direction: column;
-  gap: var(--space-lg);
+  gap: var(--space-md);
 }
 
 .detailRow {
@@ -58,7 +59,7 @@
 }
 
 .detailIcon {
-  color: rgb(0 17 58 / 0.4);
+  color: var(--color-secondary);
   margin-top: 0.25rem;
   flex-shrink: 0;
 }
@@ -82,6 +83,7 @@
   gap: var(--space-sm);
   padding-top: var(--space-lg);
   border-top: 1px solid var(--color-outline-variant);
+  justify-content: center;
 }
 
 .socialCircle {
@@ -146,28 +148,40 @@
 .form {
   background: #ffffff;
   box-shadow: 0 1px 2px rgb(0 0 0 / 0.06);
-  border: 1px solid rgb(226 226 226 / 0.3);
+  border: 1px solid var(--color-outline-variant);
+  border-radius: var(--radius-sm);
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: var(--space-md);
+  gap: var(--space-2xs);
   margin-inline: auto;
   max-width: 36rem;
-  padding: var(--space-lg);
+  padding: var(--space-md);
 }
 
 .formRow {
   display: grid;
   grid-template-columns: 1fr;
-  gap: var(--space-md);
+  gap: var(--space-2xs);
 }
 
 .field {
   display: flex;
   flex-direction: column;
-  gap: var(--space-3xs);
-  border-bottom: 1px solid rgb(226 226 226 / 0.5);
-  padding-block: var(--space-md);
+  gap: var(--space-2xs);
+  border-bottom: 1px solid var(--color-outline-variant);
+  padding-top: var(--space-sm);
+  padding-bottom: var(--space-2xs);
+  height: max-content;
+  transition: border-color 0.2s ease;
+}
+
+.field:focus-within {
+  border-bottom-color: var(--color-primary);
+}
+
+.field:focus-within .label {
+  color: var(--color-secondary);
 }
 
 .label {
@@ -175,12 +189,12 @@
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.15em;
-  color: rgb(26 28 28 / 0.4);
+  color: rgb(26 28 28 / 0.45);
   font-size: var(--fs-2xs);
+  transition: color 0.2s ease;
 }
 
 .input,
-.select,
 .textarea {
   width: 100%;
   background: transparent;
@@ -188,49 +202,171 @@
   padding: 0;
   font-weight: 300;
   color: var(--color-on-surface);
-  font-size: var(--fs-md);
+  font-size: var(--fs-base);
   outline: none;
-}
-
-.input {
-  height: 2rem;
 }
 
 .input::placeholder,
 .textarea::placeholder {
-  color: rgb(26 28 28 / 0.2);
-}
-
-.select {
-  height: 2rem;
-  appearance: none;
+  color: rgb(26 28 28 / 0.25);
 }
 
 .textarea {
   resize: none;
-  min-height: 8rem;
+  min-height: 6.5rem;
+}
+
+/* ---------- Dropdown customizado (campo "Assunto") ---------- */
+.customSelect {
+  position: relative;
+  width: 100%;
+}
+
+/* Gatilho: parece um input, mas \u00e9 um bot\u00e3o que abre a lista. */
+.selectTrigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-xs);
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-weight: 300;
+  color: var(--color-on-surface);
+  font-size: var(--fs-base);
+  text-align: left;
+}
+
+/* A setinha. Gira 180\u00b0 quando a lista est\u00e1 aberta. */
+.selectChevron {
+  color: rgb(26 28 28 / 0.4);
+  flex-shrink: 0;
+  transition: transform 0.25s ease, color 0.2s ease;
+}
+
+.selectChevronOpen {
+  transform: rotate(180deg);
+  color: var(--color-primary);
+}
+
+/* Lista de op\u00e7\u00f5es: flutua abaixo do gatilho, com anima\u00e7\u00e3o de entrada. */
+.selectOptions {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(100% + var(--space-2xs));
+  z-index: 20;
+  margin: 0;
+  padding: var(--space-3xs);
+  list-style: none;
+  background: #ffffff;
+  border: 1px solid var(--color-outline-variant);
+  border-radius: var(--radius-sm);
+  box-shadow: 0 8px 24px rgb(0 17 58 / 0.12);
+  opacity: 0;
+  transform: translateY(-6px);
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+}
+
+.selectOptionsOpen {
+  opacity: 1;
+  transform: translateY(0);
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.selectOption {
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: calc(var(--radius-sm) - 2px);
+  font-weight: 300;
+  font-size: var(--fs-sm);
+  color: var(--color-on-surface);
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.selectOption:hover {
+  background: var(--color-surface-container);
+}
+
+.selectOptionActive {
+  color: var(--color-primary);
+  font-weight: 500;
+  background: rgb(0 17 58 / 0.04);
+}
+
+/* Entrada escalonada de cada op\u00e7\u00e3o (efeito "cascata"). */
+.selectOptionsOpen .selectOption {
+  animation: optionIn 0.25s ease both;
+}
+
+.selectOptionsOpen .selectOption:nth-child(1) {
+  animation-delay: 0.03s;
+}
+
+.selectOptionsOpen .selectOption:nth-child(2) {
+  animation-delay: 0.07s;
+}
+
+.selectOptionsOpen .selectOption:nth-child(3) {
+  animation-delay: 0.11s;
+}
+
+.selectOptionsOpen .selectOption:nth-child(4) {
+  animation-delay: 0.15s;
+}
+
+.selectOptionsOpen .selectOption:nth-child(5) {
+  animation-delay: 0.19s;
+}
+
+.selectOptionsOpen .selectOption:nth-child(6) {
+  animation-delay: 0.23s;
+}
+
+@keyframes optionIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .submitWrap {
-  padding-top: var(--space-2xs);
+  padding-top: var(--space-sm);
 }
 
 .submitButton {
   width: 100%;
-  border: 1px solid var(--color-outline-variant);
-  padding: var(--space-xs) var(--space-sm);
-  color: var(--color-primary);
-  font-weight: 500;
+  border: 1px solid var(--color-primary);
+  border-radius: var(--radius-sm);
+  padding: var(--space-sm);
+  color: #ffffff;
+  font-weight: 600;
   letter-spacing: 0.15em;
-  font-size: var(--fs-2xs);
+  font-size: var(--fs-xs);
   text-transform: uppercase;
-  background: transparent;
-  transition: background 0.3s ease, color 0.3s ease;
+  background: var(--color-primary);
+  cursor: pointer;
+  transition: background 0.25s ease, transform 0.1s ease, box-shadow 0.25s ease;
 }
 
 .submitButton:hover:not(:disabled) {
-  background: var(--color-primary);
-  color: #ffffff;
+  background: var(--color-secondary);
+  border-color: var(--color-secondary);
+  box-shadow: 0 4px 12px rgb(0 17 58 / 0.15);
+}
+
+.submitButton:active:not(:disabled) {
+  transform: scale(0.99);
 }
 
 .submitButton:disabled {
@@ -248,16 +384,21 @@
 @media (min-width: 768px) {
   .formRow {
     grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-md);
   }
 
   .form {
-    padding: var(--space-xl);
+    padding: var(--space-lg);
   }
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 1051px) {
   .grid {
     grid-template-columns: 1fr 1fr;
     gap: var(--space-2xl);
+  }
+
+  .socialRow {
+    justify-content: flex-start;
   }
 }

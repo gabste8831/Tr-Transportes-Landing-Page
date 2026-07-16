@@ -35,17 +35,27 @@
 .subtitle {
   color: rgb(26 28 28 / 0.5);
   font-weight: 300;
-  margin-top: var(--space-sm);
+  margin-top: var(--space-2xs);
 }
 
-/* Carousel arrows, shown next to the section header on tablet/desktop
-   and stacked below it on mobile (headerRow gap handles the spacing). */
+/* Base styling shared by both copies of the arrows. */
 .controls {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: var(--space-sm);
+}
+
+/* Mobile copy: sits AFTER the carousel in the DOM, so the stacked order
+   becomes text > carousel > arrows. Hidden on desktop. */
+.controlsMobile {
   margin-top: var(--space-xl);
+}
+
+/* Desktop copy: lives inside the header row. Hidden on mobile so it doesn't
+   duplicate the mobile arrows. */
+.controlsDesktop {
+  display: none;
 }
 
 .controlButton {
@@ -93,15 +103,20 @@
 }
 
 .imageFrame {
-  height: 400px;
+  height: 380px;
   overflow: hidden;
-  margin-bottom: var(--space-lg);
+  margin-bottom: var(--space-sm);
   border: 1px solid var(--color-outline-variant);
   position: relative;
 }
 
 .image {
   object-fit: cover;
+  transition: scale 0.6s ease;
+}
+
+.image:hover {
+  scale: 1.01;
 }
 
 .name {
@@ -125,7 +140,16 @@
     align-items: flex-end;
   }
 
-  .arrows {
-    align-self: auto;
+  .imageFrame {
+    height: 320px;
+  }
+
+  /* On desktop: show the header copy of the arrows, hide the mobile copy. */
+  .controlsDesktop {
+    display: flex;
+  }
+
+  .controlsMobile {
+    display: none;
   }
 }

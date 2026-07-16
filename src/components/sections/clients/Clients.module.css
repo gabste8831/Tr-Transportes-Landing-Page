@@ -9,7 +9,6 @@
   max-width: 1280px;
   margin-inline: auto;
   padding-inline: var(--space-gutter);
-  margin-bottom: var(--space-lg);
 }
 
 .caption {
@@ -21,9 +20,25 @@
   font-weight: 500;
 }
 
+/* Fade nas duas bordas via mask-image.
+   A m\u00e1scara recorta o elemento inteiro pelo canal alfa do gradiente:
+   opaco (#000) no miolo = logo vis\u00edvel; transparente nas pontas = logo some.
+   N\u00e3o depende de z-index, pseudo-elemento nem da cor do fundo.
+   --fade controla a largura do desbotamento (fallback 6rem se o token faltar). */
 .marqueeOuter {
   overflow: hidden;
   display: flex;
+  --fade: var(--space-3xl, 6rem);
+  -webkit-mask-image: linear-gradient(to right,
+      transparent 0,
+      #000 var(--fade),
+      #000 calc(100% - var(--fade)),
+      transparent 100%);
+  mask-image: linear-gradient(to right,
+      transparent 0,
+      #000 var(--fade),
+      #000 calc(100% - var(--fade)),
+      transparent 100%);
 }
 
 .marqueeTrack {
@@ -31,7 +46,7 @@
   gap: var(--space-2xl);
   white-space: nowrap;
   align-items: center;
-  padding-block: var(--space-lg);
+  padding-top: var(--space-lg);
 }
 
 .logoWrap {
@@ -45,7 +60,7 @@
   object-fit: contain;
   filter: grayscale(1);
   transition: filter 0.3s ease;
-  cursor: default;
+  cursor: pointer;
 }
 
 .logoWrap:hover .logo {

@@ -1,15 +1,55 @@
 "use client";
 
-import { useState, FormEvent } from "react";
-import { MapPin, Phone, Mail, MessageCircle, Camera, Briefcase } from "lucide-react";
+import { useState, useRef, useEffect, FormEvent } from "react";
+import {
+  MapPin,
+  Phone,
+  Mail,
+  MessageCircle,
+  Camera,
+  Briefcase,
+  ChevronDown,
+} from "lucide-react";
 import styles from "./Contact.module.css";
 
 const FORMSPREE_ENDPOINT = "https://formspree.io/f/xojgvnro";
+
+const SUBJECTS = [
+  "Solicitar Orçamento",
+  "Suporte Técnico",
+  "Trabalhe Conosco",
+  "Outros",
+];
 
 type Status = "idle" | "sending" | "success" | "error";
 
 export default function Contact() {
   const [status, setStatus] = useState<Status>("idle");
+
+  // Dropdown customizado (substitui o <select> nativo p/ permitir estilo/animação)
+  const [subject, setSubject] = useState(SUBJECTS[0]);
+  const [open, setOpen] = useState(false);
+  const selectRef = useRef<HTMLDivElement>(null);
+
+  // fecha ao clicar fora
+  useEffect(() => {
+    function onClickOutside(e: MouseEvent) {
+      if (selectRef.current && !selectRef.current.contains(e.target as Node)) {
+        setOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", onClickOutside);
+    return () => document.removeEventListener("mousedown", onClickOutside);
+  }, []);
+
+  // fecha com Escape
+  useEffect(() => {
+    function onKey(e: KeyboardEvent) {
+      if (e.key === "Escape") setOpen(false);
+    }
+    if (open) document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [open]);
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -27,6 +67,7 @@ export default function Contact() {
       if (response.ok) {
         setStatus("success");
         form.reset();
+        setSubject(SUBJECTS[0]); // reseta também o dropdown customizado
       } else {
         setStatus("error");
       }
@@ -129,21 +170,51 @@ export default function Contact() {
                 </div>
               </div>
 
+              {/* Assunto — dropdown customizado */}
               <div className={styles.field}>
-                <label htmlFor="subject" className={styles.label}>
+                <span className={styles.label} id="subject-label">
                   Assunto
-                </label>
-                <select
-                  id="subject"
-                  name="subject"
-                  defaultValue="Solicitar Orçamento"
-                  className={styles.select}
-                >
-                  <option>Solicitar Orçamento</option>
-                  <option>Suporte Técnico</option>
-                  <option>Trabalhe Conosco</option>
-                  <option>Outros</option>
-                </select>
+                </span>
+                <div className={styles.customSelect} ref={selectRef}>
+                  {/* valor real enviado no formulário */}
+                  <input type="hidden" name="subject" value={subject} />
+
+                  <button
+                    type="button"
+                    className={styles.selectTrigger}
+                    aria-haspopup="listbox"
+                    aria-expanded={open}
+                    aria-labelledby="subject-label"
+                    onClick={() => setOpen((o) => !o)}
+                  >
+                    <span>{subject}</span>
+                    <ChevronDown
+                      size={18}
+                      className={`${styles.selectChevron} ${open ? styles.selectChevronOpen : ""}`}
+                    />
+                  </button>
+
+                  <ul
+                    className={`${styles.selectOptions} ${open ? styles.selectOptionsOpen : ""}`}
+                    role="listbox"
+                    aria-labelledby="subject-label"
+                  >
+                    {SUBJECTS.map((opt) => (
+                      <li
+                        key={opt}
+                        role="option"
+                        aria-selected={opt === subject}
+                        className={`${styles.selectOption} ${opt === subject ? styles.selectOptionActive : ""}`}
+                        onClick={() => {
+                          setSubject(opt);
+                          setOpen(false);
+                        }}
+                      >
+                        {opt}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
 
               <div className={styles.field}>
