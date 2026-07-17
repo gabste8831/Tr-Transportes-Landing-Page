@@ -5,19 +5,33 @@ import { MapPin, Circle, Clock } from "lucide-react";
 import styles from "./Coverage.module.css";
 
 const ITEMS = [
-  { icon: MapPin, label: "Base Estratégica em Rio do Sul" },
+  { icon: MapPin, label: "Base Estratégica in Rio do Sul" },
   { icon: Circle, label: "Cobertura total num raio de 150km" },
   { icon: Clock, label: "Prazos diferenciados para o Alto Vale" },
 ];
 
-const HEADER_HEIGHT = 50;
 const DESKTOP_QUERY = "(min-width: 1024px)";
-
 const FRAME_COUNT = 50;
 const currentFrame = (index: number) =>
   `/coverage-frames/frame_${index.toString().padStart(4, "0")}.jpg`;
 
 const CROP_EDGES = { x: 40, y: 40 };
+
+// =========================================================================
+// 🎛️ PAINEL DE CONTROLE DOS GATILHOS DA ANIMAÇÃO
+// Valores de 0 a 1 representando a altura da tela do usuário (Viewport)
+// 1.0 = Fundo da tela | 0.5 = Meio exato da tela | 0.0 = Topo da tela
+// =========================================================================
+const TRIGGER_DESKTOP = {
+  start: 0.6, // Começa a animar quando o canvas atingir 85% da tela (perto do fundo)
+  end: 0.2,   // Termina de animar quando o canvas subir até 25% da tela (perto do topo)
+};
+
+const TRIGGER_MOBILE = {
+  start: 0.8, // No mobile, começa um pouco mais tarde para dar tempo do usuário rolar após o texto
+  end: 0.3,   // Termina bem próximo do topo
+};
+// =========================================================================
 
 export default function Coverage() {
   const pinWrapperRef = useRef<HTMLDivElement>(null);
@@ -31,7 +45,6 @@ export default function Coverage() {
     const context = canvas.getContext("2d", { alpha: false });
     if (!context) return;
 
-    // Smooth interpolation variables (Lerp)
     let targetFrameIndex = 1;
     let currentFrameIndex = 1;
     let renderedFrameIndex = -1;
@@ -61,17 +74,22 @@ export default function Coverage() {
       }
     };
 
-    // Calcula o progresso (0 a 1) e define o ALVO do frame.
     const scrub = () => {
       if (images.length === 0) return;
 
-      const rect = wrapper.getBoundingClientRect();
+      // MUDANÇA CHAVE: Agora medimos o comportamento do próprio CANVAS
+      const canvasRect = canvas.getBoundingClientRect();
 
-      const startPos = window.innerHeight;
-      const endPos = window.innerHeight * 0.35;
+      // Detecta se é desktop ou mobile para aplicar as configurações certas
+      const isDesktop = window.matchMedia(DESKTOP_QUERY).matches;
+      const config = isDesktop ? TRIGGER_DESKTOP : TRIGGER_MOBILE;
+
+      // Define os pontos físicos na tela com base nas porcentagens do painel de controle
+      const startPos = window.innerHeight * config.start;
+      const endPos = window.innerHeight * config.end;
 
       const totalTravel = startPos - endPos;
-      const currentTravel = startPos - rect.top;
+      const currentTravel = startPos - canvasRect.top; // Monitora o topo do Canvas
 
       const progress = Math.min(Math.max(currentTravel / totalTravel, 0), 1);
 
@@ -81,7 +99,6 @@ export default function Coverage() {
       );
     };
 
-    // Render loop para o scroll fluido (Lerp)
     const tick = () => {
       if (!isPreloading) {
         currentFrameIndex += (targetFrameIndex - currentFrameIndex) * 0.08;
@@ -95,7 +112,6 @@ export default function Coverage() {
       loopId = requestAnimationFrame(tick);
     };
 
-    // Preload das imagens
     let loadedCount = 0;
     for (let i = 1; i <= FRAME_COUNT; i++) {
       const img = new Image();
@@ -105,7 +121,7 @@ export default function Coverage() {
         if (i === 1) {
           isPreloading = false;
           renderFrame(1);
-          scrub(); // Garante que atualiza pro frame certo caso o usuário já tenha scrollado
+          scrub();
         }
       };
       images.push(img);
@@ -118,7 +134,6 @@ export default function Coverage() {
     window.addEventListener("scroll", onScrollOrResize, { passive: true });
     window.addEventListener("resize", onScrollOrResize);
 
-    // Inicia o loop de interpolação
     loopId = requestAnimationFrame(tick);
 
     return () => {
