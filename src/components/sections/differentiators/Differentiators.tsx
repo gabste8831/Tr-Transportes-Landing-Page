@@ -83,7 +83,7 @@ export default function Differentiators() {
     const track = trackRef.current;
     if (!track) return;
 
-    const mq = window.matchMedia("(max-width: 959px)");
+    const mq = window.matchMedia("(max-width: 767px)");
     if (!mq.matches || isPaused) return;
 
     const interval = setInterval(() => {

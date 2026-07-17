@@ -38,11 +38,11 @@
   margin-inline: auto;
 }
 
-/* ---- Carrossel (base / < 960px) ---- */
+/* ---- Carrossel (base / < 768px) ---- */
 .grid {
   position: relative;
   display: flex;
-  gap: var(--space-md);
+  gap: var(--space-lg);
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   padding-block: var(--space-3xs);
@@ -55,7 +55,7 @@
 }
 
 .card {
-  flex: 0 0 80%;
+  flex: 0 0 100%;
   scroll-snap-align: center;
   display: flex;
   flex-direction: column;
@@ -64,7 +64,6 @@
   padding: var(--space-lg);
   border: 1px solid rgb(255 255 255 / 0.1);
   border-radius: var(--radius-sm);
-  margin: 0 10%;
 }
 
 .card:hover {
@@ -137,8 +136,8 @@
   background: var(--color-secondary);
 }
 
-/* ---- Grade de 3 colunas (>= 960px) ---- */
-@media (min-width: 960px) {
+/* ---- Grade de 3 colunas (>= 768px, mesmo breakpoint do Services) ---- */
+@media (min-width: 768px) {
   .grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -150,7 +149,6 @@
 
   .card {
     flex: initial;
-    margin: 0 !important;
   }
 
   .dots {

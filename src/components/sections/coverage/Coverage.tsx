@@ -66,13 +66,13 @@ export default function Coverage() {
       if (images.length === 0) return;
 
       const rect = wrapper.getBoundingClientRect();
-      
+
       const startPos = window.innerHeight;
       const endPos = window.innerHeight * 0.35;
-      
+
       const totalTravel = startPos - endPos;
       const currentTravel = startPos - rect.top;
-      
+
       const progress = Math.min(Math.max(currentTravel / totalTravel, 0), 1);
 
       targetFrameIndex = Math.min(

@@ -1,4 +1,4 @@
-import { Mail, Briefcase } from "lucide-react";
+import { Mail } from "lucide-react";
 import styles from "./Footer.module.css";
 
 /* Logos de marca (SVG inline). fill="currentColor" herda a cor de .socialLink

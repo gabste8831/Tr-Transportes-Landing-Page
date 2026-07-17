@@ -37,10 +37,6 @@
   object-fit: contain;
 }
 
-.logoLight {
-  font-weight: 300;
-}
-
 .links {
   display: none;
   align-items: center;
@@ -69,12 +65,10 @@
   transition: width 0.3s ease;
 }
 
-.link:hover::after,
-.linkActive::after {
+.link:hover::after {
   width: 100%;
 }
 
-.linkActive,
 .link:hover {
   color: var(--color-secondary);
 }

@@ -47,6 +47,25 @@
   white-space: nowrap;
   align-items: center;
   padding-top: var(--space-lg);
+  /* Logo width/gap are near-fixed px regardless of viewport, so a flat
+     32s duration always moves the same absolute distance — meaning on a
+     narrow screen, where only ~1 logo fits at a time, the same logo sits
+     in view far longer than on desktop (~5 logos visible at once). Scaling
+     the duration down as the viewport narrows keeps the pace feeling
+     similar across screen sizes. */
+  --marquee-duration: 14s;
+}
+
+@media (min-width: 640px) {
+  .marqueeTrack {
+    --marquee-duration: 20s;
+  }
+}
+
+@media (min-width: 1024px) {
+  .marqueeTrack {
+    --marquee-duration: 32s;
+  }
 }
 
 .logoWrap {

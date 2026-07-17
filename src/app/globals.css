@@ -60,6 +60,14 @@ html {
   scroll-behavior: auto;
 }
 
+/* Cobre navegação nativa por hash (URL direta tipo /#servicos, ou
+   voltar/avançar do navegador) que não passa pelo listener de clique do
+   Lenis em SmoothScroll.tsx — sem isso, essas seções ficariam parcialmente
+   escondidas atrás do header fixo (50px). */
+[id] {
+  scroll-margin-top: 50px;
+}
+
 body {
   margin: 0;
   background: var(--color-background);
@@ -97,13 +105,9 @@ ul {
   list-style: none;
 }
 
-/* Container central usado em todas as seções */
-.container {
-  width: 100%;
-  max-width: var(--container-max);
-  margin-inline: auto;
-  padding-inline: var(--space-gutter);
-}
+/* Nota: cada seção define seu próprio .container escopado dentro do
+   respectivo módulo CSS, então não existe mais uma classe .container
+   global aqui — havia uma antes, mas nunca era referenciada. */
 
 /* Marquee de logos (Clients) */
 @keyframes marquee {
@@ -116,6 +120,9 @@ ul {
 }
 
 .animate-marquee {
-  animation: marquee 32s linear infinite;
+  animation-name: marquee;
+  animation-duration: var(--marquee-duration, 32s);
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
   min-width: 200%;
 }

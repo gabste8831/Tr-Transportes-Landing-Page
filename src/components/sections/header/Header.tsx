@@ -24,7 +24,7 @@ export default function Header() {
         </a>
 
         <div className={styles.links}>
-          {NAV_LINKS.map((link, i) => (
+          {NAV_LINKS.map((link) => (
             <a
               key={link.href}
               href={link.href}
