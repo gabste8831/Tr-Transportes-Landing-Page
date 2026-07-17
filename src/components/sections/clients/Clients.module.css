@@ -84,4 +84,5 @@
 
 .logoWrap:hover .logo {
   filter: grayscale(0);
+  cursor: default;
 }
