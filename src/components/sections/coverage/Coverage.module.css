@@ -1,8 +1,20 @@
 .section {
   background: #ffffff;
-  overflow: hidden;
   padding-top: var(--space-section-md);
   padding-bottom: var(--space-section-md);
+}
+
+/* Faixa que dá "espaço de scroll" para o pin acontecer no desktop.
+   No mobile fica com altura automática (sem pin, ver media query abaixo). */
+.pinWrapper {
+  position: relative;
+}
+
+/* Conteúdo real da seção. No desktop fica sticky dentro do pinWrapper;
+   no mobile é só um container normal em fluxo de documento. */
+.pinInner {
+  display: flex;
+  align-items: center;
 }
 
 .container {
@@ -88,17 +100,32 @@
   font-weight: 300;
 }
 
-.imageWrap {
+.videoWrap {
   max-width: 500px;
   margin-inline: auto;
   width: 100%;
+  position: relative;
 }
 
-.image {
+/* Máscara via CSS para esconder a marca d'água de forma proporcional */
+.videoWrap::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  height: 8% !important;
+  width: 14% !important;
+  background: #ffffff;
+  border-bottom-right-radius: 14px;
+  /* Acompanha o arredondamento do canvas */
+}
+
+.canvas {
   display: block;
   width: 100%;
   height: auto;
   border-radius: 14px;
+  background: #ffffff;
 }
 
 @media (min-width: 1024px) {
@@ -119,11 +146,13 @@
     min-width: 484px;
   }
 
-  .imageWrap {
+  .videoWrap {
     /* Grows to take whatever space is left over once .left has taken
        only what it needs. The 500px cap only applies below 1024px now. */
     flex: 1 1 auto;
     max-width: none;
     width: auto;
   }
+
+  /* O comportamento de "travar" foi removido. Agora a seção flui normalmente com o resto da página. */
 }

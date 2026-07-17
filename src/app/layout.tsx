@@ -11,6 +11,8 @@ export const metadata: Metadata = {
     "Soluções logísticas sob medida em Rio do Sul - SC. Cargas fracionadas, cargas completas, logística reversa e parcerias de longo prazo com cobertura de 150km no Alto Vale do Itajaí.",
 };
 
+import SmoothScroll from "@/components/SmoothScroll";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -18,7 +20,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR">
-      <body>{children}</body>
+      <body>
+        <SmoothScroll>{children}</SmoothScroll>
+      </body>
     </html>
   );
 }
