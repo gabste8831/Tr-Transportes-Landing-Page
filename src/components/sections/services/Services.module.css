@@ -65,7 +65,7 @@
   flex: 0 0 100%;
   scroll-snap-align: center;
   background: transparent;
-  padding: var(--space-lg);
+  padding: var(--space-md);
   border: 1px solid rgb(255 255 255 / 0.1);
   border-radius: var(--radius-sm);
   transition: background 0.5s ease;
