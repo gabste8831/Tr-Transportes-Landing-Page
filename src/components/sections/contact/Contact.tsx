@@ -153,10 +153,6 @@ export default function Contact() {
               <a aria-label="E-mail" href="mailto:contato@vicentetransportes.com.br" className={styles.socialCircle}>
                 <Mail size={18} />
               </a>
-              <a href="#" className={styles.workWithUs}>
-                <Briefcase size={16} className={styles.workWithUsIcon} />
-                <span className={styles.workWithUsLabel}>Trabalhe conosco</span>
-              </a>
             </div>
           </div>
 
