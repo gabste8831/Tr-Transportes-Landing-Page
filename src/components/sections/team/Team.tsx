@@ -46,8 +46,6 @@ const TEAM = [
 
 const AUTOPLAY_MS = 8000;
 
-/** 1 card on phones, 2 on tablets, 4 from desktop up — matches the breakpoints
- *  already used elsewhere in the design (640px / 1024px). */
 function useVisibleCount() {
   const [visible, setVisible] = useState(4);
 
@@ -73,7 +71,11 @@ export default function Team() {
   const [index, setIndex] = useState(0);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  // keep index in range if the breakpoint changes and shrinks maxIndex
+  // 1. Refs inseridas para rastrear o movimento do dedo
+  const touchStartX = useRef<number | null>(null);
+  const touchEndX = useRef<number | null>(null);
+  const minSwipeDistance = 50; // Distância mínima (em px) para considerar um arrasto
+
   useEffect(() => {
     setIndex((i) => Math.min(i, maxIndex));
   }, [maxIndex]);
@@ -87,7 +89,7 @@ export default function Team() {
 
   const startAutoplay = () => {
     stopAutoplay();
-    if (maxIndex === 0) return; // nothing to slide to
+    if (maxIndex === 0) return;
     timerRef.current = setInterval(() => {
       setIndex((i) => (i >= maxIndex ? 0 : i + 1));
     }, AUTOPLAY_MS);
@@ -96,7 +98,7 @@ export default function Team() {
   useEffect(() => {
     startAutoplay();
     return stopAutoplay;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-disable
   }, [maxIndex]);
 
   const goTo = (nextIndex: number) => {
@@ -106,7 +108,34 @@ export default function Team() {
 
   const handleNav = (nextIndex: number) => {
     goTo(nextIndex);
-    startAutoplay(); // manual navigation resets the 8s timer
+    startAutoplay();
+  };
+
+  // 2. Novas funções inseridas para lidar com os eventos de Touch
+  const handleTouchStart = (e: React.TouchEvent) => {
+    stopAutoplay();
+    touchEndX.current = null;
+    touchStartX.current = e.targetTouches[0].clientX;
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    touchEndX.current = e.targetTouches[0].clientX;
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchStartX.current || !touchEndX.current) return;
+
+    const distance = touchStartX.current - touchEndX.current;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+
+    if (isLeftSwipe) {
+      handleNav(index + 1); // Arrastou p/ esquerda: vai para o próximo card
+    } else if (isRightSwipe) {
+      handleNav(index - 1); // Arrastou p/ direita: volta um card
+    } else {
+      startAutoplay(); // Se foi só um clique bobo sem arrastar, resume o autoplay
+    }
   };
 
   const trackWidthPercent = (count / visible) * 100;
@@ -147,10 +176,14 @@ export default function Team() {
           )}
         </div>
 
+        {/* 3. Modificado: Eventos de touch injetados aqui na Viewport */}
         <div
           className={styles.viewport}
           onMouseEnter={stopAutoplay}
           onMouseLeave={startAutoplay}
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
           role="region"
           aria-label="Carrossel da equipe"
         >

@@ -17,21 +17,15 @@ const currentFrame = (index: number) =>
 
 const CROP_EDGES = { x: 40, y: 40 };
 
-// =========================================================================
-// 🎛️ PAINEL DE CONTROLE DOS GATILHOS DA ANIMAÇÃO
-// Valores de 0 a 1 representando a altura da tela do usuário (Viewport)
-// 1.0 = Fundo da tela | 0.5 = Meio exato da tela | 0.0 = Topo da tela
-// =========================================================================
 const TRIGGER_DESKTOP = {
-  start: 0.6, // Começa a animar quando o canvas atingir 85% da tela (perto do fundo)
-  end: 0.2,   // Termina de animar quando o canvas subir até 25% da tela (perto do topo)
+  start: 0.6, // Começa a animar quando o canvas atingir 60% da tela 
+  end: 0.2,   // Termina de animar quando o canvas subir até 20% da tela
 };
 
 const TRIGGER_MOBILE = {
   start: 0.8, // No mobile, começa um pouco mais tarde para dar tempo do usuário rolar após o texto
   end: 0.3,   // Termina bem próximo do topo
 };
-// =========================================================================
 
 export default function Coverage() {
   const pinWrapperRef = useRef<HTMLDivElement>(null);

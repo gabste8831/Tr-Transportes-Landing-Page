@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react"; // Inserido useRef aqui
 import { Star, ChevronLeft, ChevronRight } from "lucide-react";
 import styles from "./Testimonials.module.css";
 
@@ -43,7 +43,6 @@ const TESTIMONIALS = [
   },
 ];
 
-/** 1 card on phones, 2 on tablets, 3 from desktop up — same breakpoints as the Team carousel. */
 function useVisibleCount() {
   const [visible, setVisible] = useState(3);
 
@@ -68,6 +67,11 @@ export default function Testimonials() {
   const maxIndex = Math.max(0, count - visible);
   const [index, setIndex] = useState(0);
 
+  // 1. Refs inseridas para rastrear o movimento do dedo
+  const touchStartX = useRef<number | null>(null);
+  const touchEndX = useRef<number | null>(null);
+  const minSwipeDistance = 50; // Distância mínima (em px) para disparar a ação
+
   useEffect(() => {
     setIndex((i) => Math.min(i, maxIndex));
   }, [maxIndex]);
@@ -75,6 +79,30 @@ export default function Testimonials() {
   const goTo = (nextIndex: number) => {
     const span = maxIndex + 1;
     setIndex(((nextIndex % span) + span) % span);
+  };
+
+  // 2. Novas funções inseridas para capturar os gestos na tela
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchEndX.current = null;
+    touchStartX.current = e.targetTouches[0].clientX;
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    touchEndX.current = e.targetTouches[0].clientX;
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchStartX.current || !touchEndX.current) return;
+
+    const distance = touchStartX.current - touchEndX.current;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+
+    if (isLeftSwipe) {
+      goTo(index + 1); // Desliza para a esquerda: mostra o próximo depoimento
+    } else if (isRightSwipe) {
+      goTo(index - 1); // Desliza para a direita: volta ao depoimento anterior
+    }
   };
 
   const trackWidthPercent = (count / visible) * 100;
@@ -93,8 +121,12 @@ export default function Testimonials() {
           </p>
         </div>
 
+        {/* 3. Modificado: Eventos de touch mapeados diretamente na Viewport */}
         <div
           className={styles.viewport}
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
           role="region"
           aria-label="Carrossel de depoimentos"
         >

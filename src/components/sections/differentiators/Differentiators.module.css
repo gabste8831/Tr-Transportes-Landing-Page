@@ -59,6 +59,7 @@
   scroll-snap-align: center;
   display: flex;
   flex-direction: column;
+  scroll-snap-stop: always;
   align-items: center;
   text-align: center;
   padding: var(--space-lg);
