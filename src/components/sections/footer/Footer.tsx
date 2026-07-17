@@ -117,7 +117,7 @@ export default function Footer() {
               aria-hidden="true"
               className={styles.creditLogo}
             />
-            <span className={styles.creditText}>Desenvolvido por <a>Gabriel Steffens</a></span>
+            <span className={styles.creditText}>Desenvolvido por <p>Gabriel Steffens</p></span>
           </a>
         </div>
       </div>

@@ -143,11 +143,12 @@
   transition: color 0.2s ease;
 }
 
-.credit a {
+.credit p {
   transition: color 0.2s ease;
+  display: inline;
 }
 
-.credit:hover a {
+.credit:hover p {
   color: #ffffff;
 }
 
