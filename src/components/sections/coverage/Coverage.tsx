@@ -11,7 +11,7 @@ export default function Coverage() {
   return (
     <section className={styles.section} id="cobertura">
       <div className={styles.container}>
-        <div className={styles.grid}>
+        <div className={styles.layout}>
           <div className={styles.left}>
             <span className={styles.eyebrow}>Presença Regional</span>
             <h2 className={styles.title}>Área de Atuação e Cobertura</h2>

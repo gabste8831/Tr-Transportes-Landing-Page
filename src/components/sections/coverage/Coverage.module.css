@@ -11,16 +11,22 @@
   padding-inline: var(--space-gutter);
 }
 
-.grid {
-  display: grid;
-  gap: var(--space-md);
+/* Was display: grid with a 12-column template at desktop (left: span 6,
+   imageWrap: span 6). Same breakpoint (stacked -> side by side at 1024px),
+   now on flex so the gap between the two halves is a single, direct value
+   below instead of living inside a grid-column/gap combo. */
+.layout {
+  display: flex;
+  flex-direction: column;
   align-items: center;
+  gap: var(--space-md);
 }
 
 .left {
   display: flex;
   flex-direction: column;
   gap: var(--space-xs);
+  width: 100%;
 }
 
 .eyebrow {
@@ -96,16 +102,28 @@
 }
 
 @media (min-width: 1024px) {
-  .grid {
-    grid-template-columns: repeat(12, 1fr);
+  .layout {
+    flex-direction: row;
+    align-items: center;
+    /* This is the one value that controls the gap between the two
+       50/50 halves — tune it directly, independent of the mobile gap above. */
     gap: var(--space-2xl);
   }
 
   .left {
-    grid-column: span 6;
+    /* Explicit cap: once the viewport grows past this, .left stops
+       growing and every extra pixel goes to .imageWrap instead. */
+    flex: 0 1 auto;
+    width: auto;
+    max-width: 600px;
+    min-width: 484px;
   }
 
   .imageWrap {
-    grid-column: span 6;
+    /* Grows to take whatever space is left over once .left has taken
+       only what it needs. The 500px cap only applies below 1024px now. */
+    flex: 1 1 auto;
+    max-width: none;
+    width: auto;
   }
 }
