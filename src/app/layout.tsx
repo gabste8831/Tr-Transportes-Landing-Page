@@ -9,6 +9,10 @@ export const metadata: Metadata = {
   title: "Vicente Transportes | Logística Regional no Alto Vale do Itajaí",
   description:
     "Soluções logísticas sob medida em Rio do Sul - SC. Cargas fracionadas, cargas completas, logística reversa e parcerias de longo prazo com cobertura de 150km no Alto Vale do Itajaí.",
+  icons: {
+    icon: "/logo-favicon.png",
+    shortcut: "/logo-favicon.png",
+  },
 };
 
 export default function RootLayout({
