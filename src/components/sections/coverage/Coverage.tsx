@@ -19,7 +19,7 @@ const CROP_EDGES = { x: 40, y: 40 };
 
 const TRIGGER_DESKTOP = {
   start: 0.6, // Começa a animar quando o canvas atingir 60% da tela 
-  end: 0.2,   // Termina de animar quando o canvas subir até 20% da tela
+  end: 0.4,   // Termina de animar quando o canvas subir até 20% da tela
 };
 
 const TRIGGER_MOBILE = {

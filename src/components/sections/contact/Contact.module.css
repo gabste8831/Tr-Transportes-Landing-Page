@@ -343,9 +343,9 @@
 }
 
 .statusMessage {
-  color: var(--color-secondary);
+  color: #23ae2a;
   font-size: var(--fs-sm);
-  font-weight: 300;
+  font-weight: 500;
   margin-top: var(--space-md);
 }
 

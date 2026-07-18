@@ -260,7 +260,7 @@ export default function Contact() {
 
                 {status === "success" && (
                   <p className={styles.statusMessage} role="status">
-                    Mensagem enviada com sucesso! Nossa equipe entrará em contato em breve.
+                    Mensagem enviada com sucesso!<br />Nossa equipe entrará em contato em breve.
                   </p>
                 )}
                 {status === "error" && (

@@ -39,6 +39,8 @@
       #000 var(--fade),
       #000 calc(100% - var(--fade)),
       transparent 100%);
+    max-width: 1280px;
+    margin: 0 auto;
 }
 
 .marqueeTrack {
